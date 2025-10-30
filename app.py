@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, render_template, jsonify, request
 import logging
 
 # --- Logging Setup ---
@@ -9,12 +9,12 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    logging.info(f"Request received from {request.remote_addr}")
-    return "Hello, DevOps World The Flask app is running successfully "
+    logging.info(f"Homepage accessed from {request.remote_addr}")
+    return render_template('index.html')
 
 @app.route('/health')
 def health_check():
-    return {"status": "healthy"}, 200
+    return jsonify({"status": "healthy"}), 200
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
